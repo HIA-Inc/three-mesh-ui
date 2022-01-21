@@ -461,7 +461,10 @@ export default function MeshUIComponent( Base = class {} ) {
 
                     case "hiddenOverflow" :
                         this[ prop ] = options[ prop ];
-                        break
+                        break;
+
+                    case "fitToContent" :
+                        break;
 
                     }
                 }

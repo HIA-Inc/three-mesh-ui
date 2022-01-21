@@ -33,7 +33,8 @@ export default {
 	// this default value is a function to avoid initialization issues (see issue #126)
 	backgroundTexture: makeBackgroundTexture,
 	hiddenOverflow: false,
-	letterSpacing: 0
+	letterSpacing: 0,
+    fitToContent: 'none'
 };
 
 //
