@@ -295,6 +295,10 @@ export default function MeshUIComponent( Base = class {} ) {
             return (this.bestFit === undefined) ? DEFAULTS.bestFit : this.bestFit;
         }
 
+        getFitToContent() {
+            return (this.fitToContent === undefined) ? DEFAULTS.fitToContent : this.fitToContent;
+        }
+
         ///////////////
         ///  UPDATE
         ///////////////
@@ -462,6 +466,11 @@ export default function MeshUIComponent( Base = class {} ) {
                         break;
 
                     case "fitToContent" :
+                        if ( this.isBlock ) {
+                            layoutNeedsUpdate = true;
+                            this[ prop ] = options[ prop ];
+                        }
+
                         break;
 
                     }
@@ -484,6 +493,9 @@ export default function MeshUIComponent( Base = class {} ) {
             // if font kerning changes for a child of a block with Best Fit enabled, we need to trigger parsing for the parent as well.
             const parent = this.getUIParent();
             if( parent && parent.getBestFit()) parent.update(true, true, false);
+
+            // If fit to content is enabled, a parsing update on a component will require a layout update to its parent
+            if ( ( this.isInline || this.isText ) && parent.getFitToContent() != 'none' && parsingNeedsUpdate ) this.getHighestParent().update(false, true, false);
 
             // Call component update
 
